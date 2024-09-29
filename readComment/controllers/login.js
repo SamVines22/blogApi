@@ -8,7 +8,6 @@ function issueJWT(user) {
     const expiresIn = 60*60*24;
     const payload = {sub: id};
     const token = jwt.sign(payload,'secret', {expiresIn: expiresIn});
-    console.log("check here");
     console.log(token);
     return {
         token: token,
@@ -19,14 +18,12 @@ function issueJWT(user) {
 
 
 
-
 function getLogin(req,res) {
   
     res.render("login");
 }
 
 async function postLogin(req,res) {
-    console.log(req.body);
     const user = await prisma.users.findFirst({where: {username:req.body.username}});
     if (!user){
         res.json("username not found");
@@ -36,8 +33,10 @@ async function postLogin(req,res) {
     if (match)
     {
         const jwt = issueJWT(user);
-        res.cookie("token",jwt.token, {maxAge: jwt.expiresIn * 1000});
-        res.render("homepage");
+   //     res.headers['authorization'] = jwt.token;
+        console.log(jwt);
+     //   res.cookie("token", jwt.token, {maxAge: jwt.expiresIn * 1000});
+        res.redirect("/");
     }
     else {
         res.json("passport doesn't match");

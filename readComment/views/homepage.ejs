@@ -9,6 +9,7 @@
     <%-include('template')%> 
     <%if (name) {%>
         <h2>Welcome back <%=name%></h2>
+        <a href = "/user/logout">Logout</a>
     <%}else {%>
         <h2>Welcome User!</h2>
         <a href = "/user">Click here to login</a>

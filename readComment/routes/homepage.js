@@ -6,8 +6,8 @@ const router = Router();
 
 
 router.get("/", middleware.isSignedIn,controllers.home);
-router.get("/posts/:postid", middleware.authenticate, controllers.seeOnePost)
-router.post("/posts/:postid", middleware.authenticate, controllers.commentPost);
+router.get("/posts/:postid", middleware.verifyToken, controllers.seeOnePost)
+router.post("/posts/:postid", middleware.verifyToken, controllers.commentPost);
 
 
 
